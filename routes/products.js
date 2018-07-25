@@ -45,23 +45,23 @@ router.post('/addProduct',(req,res,next)=>{
     })
   })
 
-  router.get('/add-to-card/:id',function(req,res,next)
-{
-var productId=req.params.id;
-var cart=new cart(req.session.cart? req.session.cart:{});
+//   router.get('/add-to-card/:id',function(req,res,next)
+// {
+// var productId=req.params.id;
+// var cart=new cart(req.session.cart? req.session.cart:{});
 
 
-Product.findById(productId,function(err,product){
-    if(err)
-    {
-        return res.redirect('/');
-    // res.send(err);
-    }
-    cart.add(product,product.id);
-    // req.session.cart=cart;
-    // console.log(req.session.cart);
-     res.redirect('/');
-});
-});
+// Product.findById(productId,function(err,product){
+//     if(err)
+//     {
+//         return res.redirect('/');
+//     // res.send(err);
+//     }
+//     cart.add(product,product.id);
+//     // req.session.cart=cart;
+//     // console.log(req.session.cart);
+//      res.redirect('/');
+// });
+// });
 
 module.exports=router;
