@@ -18,7 +18,10 @@ const UserSchema = mongoose.Schema ({
   password: {
     type: String,
     required: true
-  }
+  },
+  interestedIn: [String]
+
+  
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
@@ -39,5 +42,13 @@ module.exports.addUser = function(newUser, callback) {
         newUser.password = hash;
         newUser.save(callback);
       });
+    });
+  }
+
+
+  module.exports.comparePassword = function(candidatePassword, hash, callback) {
+    bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
+      if(err) throw err;
+      callback(null, isMatch);
     });
   }
