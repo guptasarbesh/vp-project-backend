@@ -59,18 +59,28 @@ router.post('/authenticate', (req, res, next) => {
     });
   });
 
+  //add to cart
+router.put('/addCart/:id/:product', (req, res, next) => {
+  User.update({ _id: req.params.id }, { $push: { interestedIn: req.params.product } }, (err, data) => {
+      if (err)
+          return res.json(err);
+      else
+          return res.json(data);
+  });
+})
+
   // Profile
   router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
     res.json({user: req.user});
   });
 
-  router.put('/addCart/:id/:product',(req,res,next)=>{
-    User.update({_id:req.params.id},{$push:{interestedIn:req.params.product}},(err,data)=>{
-        if(err)
-        return res.json(err);
-        else
-        return res.json(data);
-    });
-})
+//   router.put('/addCart/:id/:product',(req,res,next)=>{
+//     User.update({_id:req.params.id},{$push:{interestedIn:req.params.product}},(err,data)=>{
+//         if(err)
+//         return res.json(err);
+//         else
+//         return res.json(data);
+//     });
+// })
 
 module.exports=router;
