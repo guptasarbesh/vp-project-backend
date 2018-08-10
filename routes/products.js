@@ -4,8 +4,6 @@ const router = express.Router();
 const config=require('../config/database');
 const Product = require('../models/product');
 
-const Cart=require('../models/cart');
-
 
 
 router.post('/addProduct',(req,res,next)=>{
@@ -25,6 +23,15 @@ router.post('/addProduct',(req,res,next)=>{
           res.send(product)
       });
 });
+
+router.get('/getItem/:id',(req,res,next)=>{
+    // console.log(req.params.id);
+    Product.findById(req.params.id,(err,product)=>{
+        if(err)
+            return res.status(500).send(err);
+            return res.status(200).send(product);
+    });
+})
 
  // Profile
  router.get('/Sunglass/:id',( req, res, next) => {
